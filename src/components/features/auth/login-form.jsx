@@ -2,9 +2,11 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
+
 // Schema using Zod
 const schema = z.object({
   email: z.string().email("Enter a valid email" ),
@@ -28,15 +30,15 @@ export default function LoginForm() {
 
     try {
       // Simulate login API
-      await new Promise((r) => setTimeout(r, 1000));
+      new Promise(() => setTimeout(toast.success("Login Successful"), 1000));
       console.log("User logged in:", data);
 
       // Redirect or set auth state here
-      alert("Login successful!");
       router.push('/dashboard');
       
     } catch (err) {
       // Handle failed login
+        toast.error("Invalid email or password.");
       setServerError("Invalid email or password.");
     }
   };

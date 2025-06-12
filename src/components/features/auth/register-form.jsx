@@ -1,6 +1,8 @@
 'use client';
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import React from 'react';
@@ -27,6 +29,7 @@ const schema = z.object({
 
 // Demo content for preview
 export default function RegisterForm() {
+    const router = useRouter();
      const{
         register,
         handleSubmit,
@@ -42,15 +45,14 @@ export default function RegisterForm() {
     
         try {
           // Simulate login API
-          await new Promise((r) => setTimeout(r, 1000));
+          await new Promise((r) => setTimeout(toast.success("Account created successfully!"), 1000));
           console.log("User Registered:", data);
-    
+
           // Redirect or set auth state here
-          alert("Account Created successfuly!");
-          router.push('/dashboard')
-    
+          router.push('/dashboard')    
         } catch (err) {
           // Handle failed login
+          toast.error("Failed to create account.");
           setServerError("Invalid email or password.");
         }
       };

@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Grid, Map, Heart, Bed, Bath, Square, User, Bell } from 'lucide-react';
+import Sidebar from '@/components/layout/sidebarLayout';
+import SettingsDropdown from '@/components/ui/SettingsDropdown';
 
 const LoadingState = () => (
   <div className="w-full h-[500px] bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg animate-pulse flex items-center justify-center">
@@ -271,30 +273,24 @@ const MapEstateApp = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex h-screen overflow-hidden">
+    <Sidebar />
+    <div className="flex-1 overflow-y-auto bg-gray-50">
+      
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
-                <div className="text-white font-bold text-sm">E</div>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Estates</span>
-            </div>
-            
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-gray-600 hover:text-gray-900">About</a>
               <a href="#" className="text-gray-600 hover:text-gray-900">Buy</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">Sell</a>
               <a href="#" className="text-gray-900 font-medium border-b-2 border-gray-900 pb-4">Rent</a>
               <a href="#" className="text-gray-600 hover:text-gray-900">Contact</a>
             </nav>
             
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">Guangming</span>
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <User className="w-4 h-4 text-white" />
+              <span className="text-sm text-gray-600">{/*name */}</span>
+              <div className="w-8 h-8  rounded-full flex items-center justify-center">
+                <SettingsDropdown/>
               </div>
               <Bell className="w-5 h-5 text-gray-600" />
             </div>
@@ -474,6 +470,7 @@ const MapEstateApp = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

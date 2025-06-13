@@ -9,8 +9,11 @@ import Link from "next/link";
 
 // Schema using Zod
 const schema = z.object({
-  email: z.string().email("Enter a valid email" ),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  identifier: z.string().refine(val => {
+    return val.includes('@') ? z.string().email().safeParse(val).success : val.length >= 3;
+  }, {
+    message: "Enter a valid email or username"
+  }),  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export default function LoginForm() {
@@ -58,14 +61,14 @@ export default function LoginForm() {
       
       <div className="space-y-4">
         <div>
-          <div className="block text-sm font-medium text-gray-700 mb-1">Email</div>
+          <div className="block text-sm font-medium text-gray-700 mb-1">Email or Username</div>
           <input 
-            {...register("email")}
-            type="email" 
+            {...register("identifier")}
+            type="text" 
             className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 ${ errors.email ? "border-red-500" : "border-gray-200"} text-gray-900 bg-white placeholder-gray-400`}
-            placeholder="Enter your email"
+            placeholder="Enter your email or username"
           />
-          {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
+          {errors.identifier && <p className="text-red-600 text-sm mt-1">{errors.identifier.message}</p>}
         </div>
         
         <div>

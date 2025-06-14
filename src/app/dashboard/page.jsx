@@ -10,10 +10,10 @@ import PropertiesSection from './layout/properties-section';
 import AppToaster from '@/components/ui/Toaster';
 
 export default function PropertyDashboard() {
-
   return (
     <div className="flex h-screen bg-gray-50">
       <Sidebar />
+      {/* Toast Notifications */}
       <AppToaster/>
 
       {/* Main Content */}

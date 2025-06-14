@@ -46,11 +46,14 @@ export default function LoginForm() {
     try {
       // Redirect or set auth state here
       if (res.ok) {
+        toast.success(`Welcome back! ${result.user.username}`);
               // Simulate login API
       contextLogin(result.user); // <- set user in context
-      new Promise(() => setTimeout(toast.success(`Welcome Back ,${result.user}`), 1000));
+      // Redirect to dashboard or home page
       console.log("User logged in:", data);
-      router.push('/dashboard');
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 1000);
       } 
     } catch (err) {
       // Handle failed login

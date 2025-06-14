@@ -9,23 +9,21 @@ import React from 'react';
 import Link from "next/link";
 
 // Schema using Zod
-const schema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters")
-    .refine((val, ctx) => {
-      if (val !== ctx.parent.password) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Passwords do not match"
-        });
-        return false;
-      }
-      return true;
+const schema = z
+    .object({
+      firstName: z.string().min(1, "First name is required"),
+      lastName: z.string().min(1, "Last name is required"),
+      email: z.string().email("Enter a valid email"),
+      password: z.string().min(6, "Password must be at least 6 characters"),
+      confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters")
     })
-});
+    .refine((data) => 
+      data.password === data.confirmPassword, {
+        path: ["confirmPassword"],
+        message: "Passwords do not match"
+
+      });
+       
 
 // Demo content for preview
 export default function RegisterForm() {
@@ -52,7 +50,7 @@ export default function RegisterForm() {
 
     try {
       // Simulate login API
-      await new Promise((r) => setTimeout(toast.success(res.message, res.data), 1000));
+      toast.success(res.message, res.data);
       console.log("User Registered:", data);
 
       // Redirect or set auth state here

@@ -5,8 +5,6 @@ import SettingsDropdown from "../ui/SettingsDropdown";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [openDropSettings, setOpenDropSettings] = useState(false);
-
 
   return (
     // {/* Header */}
@@ -31,7 +29,6 @@ export default function Header() {
         <div className="flex items-center space-x-4">
           <span className="text-gray-600">AI Assistant</span>
          <SettingsDropdown/>
-          <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
         </div>
       </div>
     </div>

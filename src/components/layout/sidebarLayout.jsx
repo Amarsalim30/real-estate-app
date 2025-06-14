@@ -1,20 +1,24 @@
 import { Building, Home, User, Settings, BarChart3, Calendar, TrendingUp, TrendingDown, MessageSquare, HelpCircle } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { act } from 'react';
+import { useAuth } from '@/app/context/authContext';
+
 export default function Sidebar() {
+  const { user } = useAuth();
+  if (!user) return null; // Ensure user is authenticated before rendering sidebar
   const router = useRouter();
   const pathname = usePathname();
   const sidebarItems = [
-    { icon: BarChart3, label: 'Dashboard', active: pathname === '/dashboard' ,pathname: '/dashboard' },
-    { icon: Building, label: 'My Property', active: pathname === '/property-listings', pathname: '/property-listings' },
-    { icon: BarChart3, label: 'Analytic' },
-    { icon: Calendar, label: 'Transaction',active: pathname === '/transactions', pathname: '/transactions' },
-    { icon: TrendingUp, label: 'Cashflow' },
-    { icon: User, label: 'Customer' },
-    { icon: MessageSquare, label: 'Message' },
-    { icon: HelpCircle, label: 'User Guide' },
-    { icon: HelpCircle, label: 'FAQ' },
-    { icon: Settings, label: 'Help Center' }
+    { icon: BarChart3, label: 'Dashboard', active: pathname === '/dashboard', pathname: '/dashboard', roles: ['admin', 'user'] },
+    { icon: Building, label: 'My Property', active: pathname === '/property-listings', pathname: '/property-listings', roles: ['admin', 'user'] },
+
+    { icon: BarChart3, label: 'Analytic', active: pathname === '/analytics', pathname: '/analytics', roles: ['admin'] },
+    { icon: Calendar, label: 'Transaction', active: pathname === '/transactions', pathname: '/transactions', roles: ['admin', 'user'] },
+    { icon: TrendingUp, label: 'Cashflow', active: pathname === '/cashflow', pathname: '/cashflow', roles: ['admin'] },
+    { icon: User, label: 'Customer', active: pathname === '/customers', pathname: '/customers', roles: ['admin'] },
+    { icon: MessageSquare, label: 'Message', active: pathname === '/messages', pathname: '/messages', roles: ['admin', 'user'] },
+    { icon: HelpCircle, label: 'User Guide', active: pathname === '/user-guide', pathname: '/user-guide', roles: ['admin', 'user'] },
+    { icon: HelpCircle, label: 'FAQ', active: pathname === '/faq', pathname: '/faq', roles: ['admin', 'user'] },
+    { icon: Settings, label: 'Help Center', active: pathname === '/help-center', pathname: '/help-center', roles: ['admin', 'user'] },
   ];
 
   return (
@@ -30,17 +34,21 @@ export default function Sidebar() {
       </div>
 
       <nav className="mt-8">
-        {sidebarItems.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => router.push(item.pathname || '#')}
-            className={`flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 cursor-pointer ${item.active ? 'bg-teal-50 text-teal-600 border-r-2 border-teal-500' : ''
-              }`}
-          >
-            <item.icon className="w-5 h-5 mr-3" />
-            <span className="text-sm">{item.label}</span>
-          </div>
-        ))}
+        {sidebarItems
+          // Filter items based on user role
+          // Ensure the user has permission to view the item
+          .filter(item => item.roles?.includes(user.role))
+          .map((item, index) => (
+            <div
+              key={index}
+              onClick={() => router.push(item.pathname || '#')}
+              className={`flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 cursor-pointer ${item.active ? 'bg-teal-50 text-teal-600 border-r-2 border-teal-500' : ''
+                }`}
+            >
+              <item.icon className="w-5 h-5 mr-3" />
+              <span className="text-sm">{item.label}</span>
+            </div>
+          ))}
       </nav>
     </div>
   );

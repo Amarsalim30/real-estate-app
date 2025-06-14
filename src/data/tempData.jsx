@@ -3,7 +3,7 @@ import { Building ,DollarSign ,Home ,Users } from "lucide-react";
 export const metricsData = [
   {
     title: "Properties Managed",
-    value: "4860",
+    value: "",
     change: "+98%",
     trend: "up",
     icon: Building,

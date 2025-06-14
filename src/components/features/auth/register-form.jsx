@@ -41,11 +41,18 @@ export default function RegisterForm() {
       const [serverError, setServerError] = useState("");
     
       const onSubmit = async (data) => {
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
         setServerError("");
     
         try {
           // Simulate login API
-          await new Promise((r) => setTimeout(toast.success("Account created successfully!"), 1000));
+          await new Promise((r) => setTimeout(toast.success(res.message,res.data), 1000));
           console.log("User Registered:", data);
 
           // Redirect or set auth state here
@@ -76,29 +83,31 @@ export default function RegisterForm() {
             <input 
               type="text" 
               {...register("firstName")}
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400"
+              className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400  ${errors.firstName ? "border-red-500" : "border-gray-200"}`}
               placeholder="John"
             />
+            {errors.firstName && <p className="text-red-600 text-sm mt-1">{errors.firstName.message}</p>}
           </div>
-          <div>
+          
             <div className="block text-sm font-medium text-gray-700 mb-1">Last Name</div>
             <input 
               type="text"
               {...register("lastName")} 
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400"
+              className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400 ${errors.lastName ? "border-red-500" : "border-gray-200"}`}
               placeholder="Doe"
             />
-          </div>
-        </div>
+            {errors.lastName && <p className="text-red-600 text-sm mt-1">{errors.lastName.message}</p>}
+            </div>
         
         <div>
           <div className="block text-sm font-medium text-gray-700 mb-1">Email</div>
           <input 
             type="email" 
             {...register("email")}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400"
+            className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400 ${errors.email ? "border-red-500" : "border-gray-200"}`}
             placeholder="john@example.com"
           />
+          {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
         </div>
         
         <div>
@@ -106,9 +115,10 @@ export default function RegisterForm() {
           <input 
             type="password" 
             {...register("password")}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400"
+            className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400 ${errors.password ? "border-red-500" : "border-gray-200"}`}
             placeholder="Create a strong password"
           />
+          {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
         </div>
         
         <div>
@@ -116,9 +126,10 @@ export default function RegisterForm() {
           <input 
             type="password" 
             {...register("confirmPassword")}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400"
+            className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200  text-gray-900 bg-white placeholder-gray-400 ${errors.confirmPassword ? "border-red-500" : "border-gray-200"}`}
             placeholder="Confirm your password"
           />
+          {errors.confirmPassword && <p className="text-red-600 text-sm mt-1">{errors.confirmPassword.message}</p>}
         </div>
         
         <div className="flex items-start text-sm">
@@ -129,7 +140,7 @@ export default function RegisterForm() {
         <button 
           className="w-full bg-gradient-to-r from-teal-500 to-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:from-teal-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
         >
-          Create Account
+          {isSubmitting ? "Creating account..." : "Create Account"}
         </button>
       </div>
       

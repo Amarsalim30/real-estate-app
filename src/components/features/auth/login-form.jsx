@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from '@/app/context/authContext';
+
 
 // Schema using Zod
 const schema = z.object({
@@ -17,6 +19,7 @@ const schema = z.object({
 });
 
 export default function LoginForm() {
+ const { login: contextLogin } = useAuth(); // rename to avoid conflict
  const router = useRouter();
  const{
     register,
@@ -28,17 +31,27 @@ export default function LoginForm() {
 
   const [serverError, setServerError] = useState("");
 
-  const onSubmit = async (data) => {
+ const onSubmit = async (data) => {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
     setServerError("");
 
     try {
-      // Simulate login API
-      new Promise(() => setTimeout(toast.success("Login Successful"), 1000));
-      console.log("User logged in:", data);
-
       // Redirect or set auth state here
+      if (res.ok) {
+              // Simulate login API
+      contextLogin(result.user); // <- set user in context
+      new Promise(() => setTimeout(toast.success(`Welcome Back ,${result.user}`), 1000));
+      console.log("User logged in:", data);
       router.push('/dashboard');
-      
+      } 
     } catch (err) {
       // Handle failed login
         toast.error("Invalid email or password.");
@@ -91,7 +104,7 @@ export default function LoginForm() {
         </div>
         
          {/* Error Alert */}
-      {serverError && <p className="text-red-600 text-sm">{serverError}</p>}
+       {serverError && <p className="text-red-600 text-sm">{serverError}</p>}
 
         <button 
             type="submit" 

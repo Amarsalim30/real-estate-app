@@ -2,8 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Settings, User, UserCog, LogOut, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useAuth } from '@/app/context/authContext';
 
 export default function SettingsDropdown() {
+    const { user,logout } = useAuth();
+    if (!user) return null; // Ensure user is authenticated before rendering dropdown
+
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
     const router = useRouter();
@@ -46,6 +50,8 @@ export default function SettingsDropdown() {
             label: 'Logout',
             description: 'Sign out of your account',
             onClick: () => {
+                logout(); // Call logout function from context
+                // Simulate logout API call
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
                         // Simulate logout API call

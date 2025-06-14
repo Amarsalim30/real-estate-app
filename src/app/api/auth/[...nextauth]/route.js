@@ -6,12 +6,12 @@ export default NextAuth({
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        email: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         const users = [
-          { id: 1, username: 'Alice',email: 'admin', password: 'admin', role: 'admin' },
+          { id: 1, username: 'Alice',email: 'admin@gmail.com', password: 'admin123', role: 'admin' },
           { id: 2, username: 'Bob', email: 'manager', password: 'manager', role: 'user' },
           { id: 3, username: 'Carol', email: 'user', password: 'user', role: 'user' },
         ];

@@ -11,7 +11,7 @@ import AppToaster from '@/components/ui/Toaster';
 
 export default function DashboardLayout() {
   return (
-    <>
+    <div className="flex h-screen bg-gray-50">
       <Sidebar />
       {/* Toast Notifications */}
       <AppToaster/>
@@ -29,6 +29,6 @@ export default function DashboardLayout() {
         <PropertiesSection />
         </div>
       </div>
-    </>
+    </div>
   );
 }

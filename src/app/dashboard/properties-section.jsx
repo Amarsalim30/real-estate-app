@@ -52,8 +52,8 @@ export default function PropertiesSection() {
                       </div>
                       
                       <div className="flex space-x-2 pt-2">
-                        <button className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50">
-                               Book a call
+                        <button className="flex-1 px-3 py-2 border border-gray-200 text-black rounded-lg text-sm hover:bg-gray-50">
+                               More Info
                         </button>
                         <button className="flex-1 px-3 py-2 bg-black text-white rounded-lg text-sm hover:bg-gray-800">
                           Book a call

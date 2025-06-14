@@ -6,8 +6,8 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
-import { useAuth } from '@/app/context/authContext';
-
+import { signIn } from "next-auth/react";
+import Credentials from "next-auth/providers/credentials";
 
 // Schema using Zod
 const schema = z.object({
@@ -19,7 +19,6 @@ const schema = z.object({
 });
 
 export default function LoginForm() {
- const { login: contextLogin } = useAuth(); // rename to avoid conflict
  const router = useRouter();
  const{
     register,
@@ -32,32 +31,20 @@ export default function LoginForm() {
   const [serverError, setServerError] = useState("");
 
  const onSubmit = async (data) => {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    const res = await signIn(Credentials, {
+      redirect:false,
+      ...data
     });
 
     const result = await res.json();
     setServerError("");
 
-    try {
       // Redirect or set auth state here
-      if (res.ok) {
-        toast.success(`Welcome back! ${result.user.username}`);
-              // Simulate login API
-      contextLogin(result.user); // <- set user in context
-      // Redirect to dashboard or home page
-      console.log("User logged in:", data);
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 1000);
-      } 
-    } catch (err) {
-      // Handle failed login
-        toast.error("Invalid email or password.");
+     if (res?.ok) {
+      toast.success("Login successful!");
+      router.push("/dashboard");
+    } else {
+      toast.error("Invalid email or password.");
       setServerError("Invalid email or password.");
     }
   };

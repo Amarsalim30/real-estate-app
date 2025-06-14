@@ -1,13 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-// app/layout.tsx
-import { AuthProvider } from "@/app/context/authContext";
+
+'use client'
+import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

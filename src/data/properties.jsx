@@ -1,87 +1,53 @@
-const listing = [
-  {
-    id: 1,
-    title: 'Cosy apartment for rent',
-    price: 80,
-    status: available,
-    location: 'Nice',
-    coordinates: { x: 65, y: 45 },
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 45,
-    image: '/api/placeholder/300/200',
-    description: 'Located on the plateau central and close to all amenities, this location of this apartment on the first floor of a downtown building will be ideal for your needs.',
-    type: 'apartment',
-    popular: true
-  },
-  {
-    id: 2,
-    title: 'Modern city apartment',
-    price: 55,
-    status: available,
-    location: 'Nice',
-    coordinates: { x: 45, y: 60 },
-    bedrooms: 2,
-    bathrooms: 1,
-    sqft: 60,
-    image: '/api/placeholder/300/200',
-    type: 'apartment'
-  },
-  {
-    id: 3,
-    title: 'Luxury downtown flat',
-    price: 80,
-    status: available,
-    location: 'Nice',
-    coordinates: { x: 70, y: 35 },
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 55,
-    image: '/api/placeholder/300/200',
-    type: 'apartment'
-  },
-  {
-    id: 4,
-    title: 'Bright studio apartment',
-    price: 69,
-    status: available,
-
-    location: 'Nice',
-    coordinates: { x: 55, y: 70 },
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 40,
-    image: '/api/placeholder/300/200',
-    type: 'apartment'
-  },
-  {
+  export const Listings = [
+    {
+      id: 1,
+      title: "Dream House, New York",
+      price: 285000,
+      address: "88 Lakeview Dr Ne Atlanta, Ga 30317",
+      image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop",
+      beds: 3,
+      baths: 2,
+      sqft: 1685,
+      year: 1992,
+      status: "AVAILABLE",
+      description: "Best of Both Worlds! This updated Split sits pretty on a beautiful, wooded Acre but is still very close to the city center.",
+      agent: {
+        name: "Lisa Richards",
+        avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
+      }
+    },
+    {
+      id: 2,
+      title: "Family Home with Garden",
+      price: 320000,
+      address: "Queens, New York",
+      image: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=400&h=300&fit=crop",
+      beds: 4,
+      baths: 2,
+      sqft: 1950,
+      year: 1995,
+      status: "AVAILABLE",
+      description: "Spacious family home with private garden and garage. Perfect for growing families with excellent school district.",
+      agent: {
+        name: "Emily Wilson",
+        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+      }
+    }
+    ,{
     id: 5,
-    title: 'Spacious family home',
-    price: 120,
-    location: 'Nice',
-    coordinates: { x: 40, y: 40 },
-    bedrooms: 3,
-    status: available,
-
-    bathrooms: 2,
-    sqft: 90,
-    image: '/api/placeholder/300/200',
-    type: 'house'
-  },
-  {
-    id: 6,
-    title: 'Charming villa',
-    price: 200,
-    status: available,
-
-    location: 'Nice',
-    coordinates: { x: 75, y: 55 },
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 150,
-    image: '/api/placeholder/300/200',
-    type: 'villa'
+    title: "a House, New York",
+    price: 285000,
+    address: "88 Lakeview Dr Ne Atlanta, Ga 30317",
+    image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop",
+    beds: 3,
+    baths: 2,
+    sqft: 1685,
+    year: 1992,
+    status: "AVAILABLE",
+    description: "Best of Both Worlds! This updated Split sits pretty on a beautiful, wooded Acre but is still very close to the city center with modern amenities.",
+    agent: {
+      name: "Lisa Richards",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
+    }
   }
-];
-
-export default listing;
+  ];

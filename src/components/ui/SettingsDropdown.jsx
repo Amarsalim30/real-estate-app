@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Settings, User, UserCog, LogOut, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useAuth } from '@/app/context/authContext';
+import { signOut } from 'next-auth/react';
 
 export default function SettingsDropdown() {
-    const { user,logout } = useAuth();
+    const { user, logout } = useAuth();
     if (!user) return null; // Ensure user is authenticated before rendering dropdown
 
     const [isOpen, setIsOpen] = useState(false);
@@ -50,17 +50,16 @@ export default function SettingsDropdown() {
             label: 'Logout',
             description: 'Sign out of your account',
             onClick: () => {
-                logout(); // Call logout function from context
-                // Simulate logout API call
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
                         // Simulate logout API call
                         toast.success('Logged out successfully!');
                     }, 1000);
                 })
-                router.push('/login'); // Redirect to login page
                 console.log('Logout clicked');
                 setIsOpen(false);
+                signOut({ callbackUrl: "/login" });
+
             },
             isLogout: true
         }
@@ -72,8 +71,8 @@ export default function SettingsDropdown() {
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`p-2 rounded-lg transition-all duration-200 ${isOpen
-                        ? 'text-teal-600 bg-teal-50'
-                        : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
+                    ? 'text-teal-600 bg-teal-50'
+                    : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
                     }`}
             >
                 <Settings className="w-5 h-5" />
@@ -102,13 +101,13 @@ export default function SettingsDropdown() {
                                 key={index}
                                 onClick={item.onClick}
                                 className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 ${item.isLogout
-                                        ? 'hover:bg-red-50 text-red-600 hover:text-red-700'
-                                        : 'hover:bg-gray-50 text-gray-700 hover:text-gray-900'
+                                    ? 'hover:bg-red-50 text-red-600 hover:text-red-700'
+                                    : 'hover:bg-gray-50 text-gray-700 hover:text-gray-900'
                                     }`}
                             >
                                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${item.isLogout
-                                        ? 'bg-red-100 text-red-600'
-                                        : 'bg-gray-100 text-gray-600'
+                                    ? 'bg-red-100 text-red-600'
+                                    : 'bg-gray-100 text-gray-600'
                                     }`}>
                                     <item.icon className="w-4 h-4" />
                                 </div>

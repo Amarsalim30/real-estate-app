@@ -22,7 +22,7 @@ export default function PropertListingPage () {
   };
 
   return (
-    <>
+        <div className="flex h-screen bg-gray-50">
     <Sidebar/>
     <div className="p-8 bg-gray-50 min-h-screen flex items-center justify-center">
      { Listings.map((listing)=>
@@ -35,6 +35,6 @@ export default function PropertListingPage () {
         onClick={handleCardClick}
       />)}
     </div>
-    </>
+    </div>
   );
 };

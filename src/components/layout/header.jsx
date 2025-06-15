@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Bell, Search, Settings } from "lucide-react";
 import SettingsDropdown from "../ui/SettingsDropdown";
 
-export default function Header() {
+export default function Header({session}) {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -28,7 +28,8 @@ export default function Header() {
 
         <div className="flex items-center space-x-4">
           <span className="text-gray-600">AI Assistant</span>
-         <SettingsDropdown/>
+          {session.user.name}
+         <SettingsDropdown session={session}/>
         </div>
       </div>
     </div>

@@ -5,12 +5,8 @@ import { toast } from 'sonner';
 import { signOut } from 'next-auth/react';
 
 export default function SettingsDropdown() {
-    const { user, logout } = useAuth();
-    if (!user) return null; // Ensure user is authenticated before rendering dropdown
-
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const router = useRouter();
 
     // Close dropdown when clicking outside
     useEffect(() => {

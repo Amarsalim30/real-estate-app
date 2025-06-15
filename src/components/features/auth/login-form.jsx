@@ -7,7 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import Credentials from "next-auth/providers/credentials";
+import { Eye, EyeOff, Loader2Icon } from "lucide-react";
+
 
 // Schema using Zod
 const schema = z.object({
@@ -15,32 +16,32 @@ const schema = z.object({
     return val.includes('@') ? z.string().email().safeParse(val).success : val.length >= 3;
   }, {
     message: "Enter a valid email or username"
-  }),  password: z.string().min(6, "Password must be at least 6 characters"),
+  }), password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export default function LoginForm() {
- const router = useRouter();
- const{
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const {
     register,
     handleSubmit,
-    formState:{errors,isSubmitting}
-}=useForm(
-    {resolver:zodResolver(schema)}
-);
+    formState: { errors, isSubmitting }
+  } = useForm(
+    { resolver: zodResolver(schema) }
+  );
 
   const [serverError, setServerError] = useState("");
 
- const onSubmit = async (data) => {
-    const res = await signIn(Credentials, {
-      redirect:false,
+  const onSubmit = async (data) => {
+    const res = await signIn("credentials", {
+      redirect: false,
       ...data
     });
 
-    const result = await res.json();
     setServerError("");
 
-      // Redirect or set auth state here
-     if (res?.ok) {
+    // Redirect or set auth state here
+    if (res?.ok) {
       toast.success("Login successful!");
       router.push("/dashboard");
     } else {
@@ -61,50 +62,75 @@ export default function LoginForm() {
         <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
         <p className="text-gray-600">Sign in to your Estate Dashboard</p>
       </div>
-      
+
       <div className="space-y-4">
         <div>
           <div className="block text-sm font-medium text-gray-700 mb-1">Email or Username</div>
-          <input 
+          <input
             {...register("identifier")}
-            type="text" 
-            className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 ${ errors.email ? "border-red-500" : "border-gray-200"} text-gray-900 bg-white placeholder-gray-400`}
+            type="text"
+            className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 ${errors.identifier ? "border-red-500" : "border-gray-200"} text-gray-900 bg-white placeholder-gray-400`}
             placeholder="Enter your email or username"
           />
           {errors.identifier && <p className="text-red-600 text-sm mt-1">{errors.identifier.message}</p>}
         </div>
-        
-        <div>
-          <div className="block text-sm font-medium text-gray-700 mb-1">Password</div>
-          <input 
-            type="password"
-            {...register("password")} 
-            className={`w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 ${errors.password ? "border-red-500" : "border-gray-200"} text-gray-900 bg-white placeholder-gray-400` }
-            placeholder="Enter your password"
-          />
-          {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
-        </div>
-        
+
+ <div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Password
+  </label>
+  <div className="relative">
+    <input
+      type={showPassword ? "text" : "password"}
+      {...register("password")}
+      className={`w-full px-4 py-3 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 ${
+        errors.password ? "border-red-500" : "border-gray-200"
+      } text-gray-900 bg-white placeholder-gray-400`}
+      placeholder="Enter your password"
+    />
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+      tabIndex={-1}
+    >
+      {showPassword ? (
+        <EyeOff className="w-5 h-5" />
+      ) : (
+        <Eye className="w-5 h-5" />
+      )}
+    </button>
+  </div>
+  {errors.password && (
+    <p className="text-red-600 text-sm mt-1">
+      {errors.password.message}
+    </p>
+  )}
+</div>
+
+
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center">
-            <input type="checkbox" className="rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
+            <input type="checkbox"
+              // {...register("remember")}
+              className="rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
             <span className="ml-2 text-gray-600">Remember me</span>
           </div>
           <Link href={"/forgot-password"} className="text-teal-600 hover:text-teal-700 font-medium">Forgot password?</Link>
         </div>
-        
-         {/* Error Alert */}
-       {serverError && <p className="text-red-600 text-sm">{serverError}</p>}
 
-        <button 
-            type="submit" 
-            disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-teal-500 to-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:from-teal-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+        {/* Error Alert */}
+        {serverError && <p className="text-red-600 text-sm">{serverError}</p>}
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-gradient-to-r from-teal-500 to-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:from-teal-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
         >
-        {isSubmitting ? "Signing in..." : "Sign In"}
+          {isSubmitting ? " Signing in...": "Sign In"}
         </button>
       </div>
-      
+
       <div className="text-center text-sm text-gray-600">
         Don't have an account? <Link className="text-teal-600 hover:text-teal-700 font-medium underline" href={"/register"} >Sign up</Link>
       </div>

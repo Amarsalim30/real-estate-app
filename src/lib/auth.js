@@ -48,4 +48,8 @@ export const authOptions = {
       return token;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET, // ✅ Required for JWT encryption/decryption
+  session: {
+    strategy: "jwt", // ✅ Required since you're using token-based sessions
+  },
 };

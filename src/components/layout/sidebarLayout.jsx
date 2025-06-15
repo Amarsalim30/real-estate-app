@@ -9,9 +9,9 @@ export default function Sidebar() {
   const user =session.user;
   const router = useRouter();
   const pathname = usePathname();
-  const sidebarItems = [
+  const sidebarItems = [  
     { icon: BarChart3, label: 'Dashboard', active: pathname === '/dashboard', pathname: '/dashboard', roles: ['admin', 'user'] },
-    { icon: Building, label: 'My Property', active: pathname === '/property-listings', pathname: '/property-listings', roles: ['admin', 'user'] },
+    { icon: Building, label: 'My Property', active: pathname === '/property-listings', pathname: '/property-listing', roles: ['admin', 'user'] },
     { icon: BarChart3, label: 'Analytic', active: pathname === '/analytics', pathname: '/analytics', roles: ['admin'] },
     { icon: Calendar, label: 'Transaction', active: pathname === '/transactions', pathname: '/transactions', roles: ['admin', 'user'] },
     { icon: TrendingUp, label: 'Cashflow', active: pathname === '/cashflow', pathname: '/cashflow', roles: ['admin'] },
@@ -51,6 +51,10 @@ export default function Sidebar() {
             </div>
           ))}
       </nav>
+      {/* Optional Footer */}
+      <div className="p-4 border-t text-xs text-gray-400">
+        Logged in as: <span className="text-gray-600 font-medium">{user.email}</span>
+      </div>
     </div>
   );
 }

@@ -39,31 +39,29 @@ const PropertyCard = ({
           <MapPin size={16} className="text-gray-500"/>
         <p className="text-sm text-gray-600 ">{property.address}</p>
           </div>
-        <p className="text-sm text-gray-700 mb-4">{property.description}</p>
-          
-        {/* Property Features */}
+                  {/* Property Features */}
         <div className="grid grid-cols-4 gap-2 text-center text-xs border-t border-gray-100 pt-3">
           <div className='flex flex-col items-center space-y-1'>
-            <p className="font-bold text-gray-900">{property.beds}</p>
-            <p className="text-gray-500">Beds</p>
+            <p className="text-gray-500">{property.beds} Beds</p>
             <Bed size={18} className="text-gray-500"/>
           </div>
           <div className='flex flex-col items-center space-y-1'>
-            <p className="font-bold text-gray-900">{property.baths}</p>
-            <p className="text-gray-500">Baths</p>
+            <p className="text-gray-500">{property.baths} Baths</p>
                         <Bath size={18} className="text-gray-500"/>
 
           </div>
           <div className='flex flex-col items-center space-y-1'>
-            <p className="font-bold text-gray-900">{property.sqft.toLocaleString()}</p>
-            <p className="text-gray-500">Sqft</p>
+            <p className="text-gray-500">{property.sqft.toLocaleString()} Sqft</p>
             <Square size={18} className='text-gray-500'/>
           </div>
           <div>
-            <p className="font-bold text-gray-900">{property.year}</p>
-            <p className="text-gray-500">Built</p>
+            <p className="font-bold text-gray-900">{property.category}</p>
+            <p className="text-gray-500"></p>
           </div>
         </div>
+        
+        <p className="text-sm text-gray-700 mb-4">{property.description}</p>
+          
         <div>{edit}</div>
         <div>{deleteProperty}</div>
         <div>{visit}</div>

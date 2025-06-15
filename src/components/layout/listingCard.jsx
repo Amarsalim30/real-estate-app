@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropertyCard from '../ui/card';
-const ListingCard = ({ 
+const ListingCard = ({
   listing,
   onEdit,
   onDelete,
@@ -23,16 +23,19 @@ const ListingCard = ({
   };
 
   return (
-    <div className='p-4'>
-      <PropertyCard property={listing}
-       edit={onEdit} 
-       deleteProperty={onDelete}
-       visit={onBookVisit}
-       Cardclick={onClick}/>
+    <div className=''>
+      <PropertyCard
+        property={listing}
+        {...(onEdit && { edit: () => onEdit(listing) })}
+        {...(onDelete && { deleteProperty: () => onDelete(listing) })}
+        {...(onBookVisit && { visit: () => onBookVisit(listing) })}
+        {...(onClick && { Cardclick: () => onClick(listing) })}
+      />
 
     </div>
-    
-  
-)};
+
+
+  )
+};
 
 export default ListingCard;

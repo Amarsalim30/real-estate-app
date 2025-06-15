@@ -1,16 +1,17 @@
 import { Building, Home, User, Settings, BarChart3, Calendar, TrendingUp, TrendingDown, MessageSquare, HelpCircle } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/authContext';
+import { useSession } from "next-auth/react";
 
 export default function Sidebar() {
-  const { user } = useAuth();
-  if (!user) return null; // Ensure user is authenticated before rendering sidebar
+  const {data:session,status}=useSession();
+  if (status==="loading")return null;
+  if(!session)return null;
+  const user =session.user;
   const router = useRouter();
   const pathname = usePathname();
   const sidebarItems = [
     { icon: BarChart3, label: 'Dashboard', active: pathname === '/dashboard', pathname: '/dashboard', roles: ['admin', 'user'] },
     { icon: Building, label: 'My Property', active: pathname === '/property-listings', pathname: '/property-listings', roles: ['admin', 'user'] },
-
     { icon: BarChart3, label: 'Analytic', active: pathname === '/analytics', pathname: '/analytics', roles: ['admin'] },
     { icon: Calendar, label: 'Transaction', active: pathname === '/transactions', pathname: '/transactions', roles: ['admin', 'user'] },
     { icon: TrendingUp, label: 'Cashflow', active: pathname === '/cashflow', pathname: '/cashflow', roles: ['admin'] },
@@ -38,9 +39,9 @@ export default function Sidebar() {
           // Filter items based on user role
           // Ensure the user has permission to view the item
           .filter(item => item.roles?.includes(user.role))
-          .map((item, index) => (
+          .map((item) => (
             <div
-              key={index}
+              key={item.pathname}
               onClick={() => router.push(item.pathname || '#')}
               className={`flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 cursor-pointer ${item.active ? 'bg-teal-50 text-teal-600 border-r-2 border-teal-500' : ''
                 }`}

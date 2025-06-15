@@ -11,10 +11,7 @@
       year: 1992,
       status: "AVAILABLE",
       description: "Best of Both Worlds! This updated Split sits pretty on a beautiful, wooded Acre but is still very close to the city center.",
-      agent: {
-        name: "Lisa Richards",
-        avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
-      }
+      
     },
     {
       id: 2,
@@ -28,10 +25,7 @@
       year: 1995,
       status: "AVAILABLE",
       description: "Spacious family home with private garden and garage. Perfect for growing families with excellent school district.",
-      agent: {
-        name: "Emily Wilson",
-        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
-      }
+   
     }
     ,{
     id: 5,
@@ -45,9 +39,6 @@
     year: 1992,
     status: "AVAILABLE",
     description: "Best of Both Worlds! This updated Split sits pretty on a beautiful, wooded Acre but is still very close to the city center with modern amenities.",
-    agent: {
-      name: "Lisa Richards",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
-    }
+
   }
   ];

@@ -2,6 +2,7 @@
 import ListingCard from "@/components/layout/listingCard";
 import Sidebar from "@/components/layout/sidebarLayout";
 import {Listings} from "@/data/properties";
+import PropertyHeader from "./propertyHeader";
 
 export default function PropertListingPage () {
 
@@ -24,6 +25,7 @@ export default function PropertListingPage () {
   return (
         <div className="flex h-screen bg-gray-50">
     <Sidebar/>
+    <PropertyHeader/>
     <div className="p-8 bg-gray-50 min-h-screen flex items-center justify-center">
      { Listings.map((listing)=>
       <ListingCard

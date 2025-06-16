@@ -1,7 +1,8 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { statusData ,revenueData} from '@/data/tempData';
+import { revenueData} from '@/data/tempData';
 import DealPipelineChart from './dealChart';
+
 export default function Charts() {
 
     return (

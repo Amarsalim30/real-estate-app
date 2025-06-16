@@ -3,7 +3,7 @@ import { Building ,DollarSign ,Home ,Users,Receipt,Flame } from "lucide-react";
 export const metricsData = [
   {
     title: "Properties Managed",
-    value: "100ksh",
+    value: "100",
     change: "+98%",
     trend: "up",
     icon: Home,
@@ -33,13 +33,6 @@ export const metricsData = [
     icon: Users,
     color: "bg-purple-500"
   }
-];
-
-export const statusData = [
-  { name: 'Accepted', value: 1037, color: '#3B82F6' },
-  { name: 'Rejected', value: 486, color: '#F59E0B' },
-  { name: 'Counter', value: 165, color: '#8B5CF6' },
-  { name: 'Pending', value: 166, color: '#10B981' }
 ];
 
 export const revenueData = [

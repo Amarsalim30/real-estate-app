@@ -1,4 +1,4 @@
-import AuthLayout from "@/components/layout/authLayout";
+import AuthLayout from "@/app/(auth)/authLayout";
 import LoginForm from "@/components/features/auth/login-form";
 import { Navbar } from "@/components/layout/navbarLayout";
 import AppToaster from "@/components/ui/Toaster";

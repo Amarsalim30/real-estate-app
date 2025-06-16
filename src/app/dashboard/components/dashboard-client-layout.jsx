@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import{ React, useState,useEffect } from 'react';
 
 import Sidebar from '@/components/layout/sidebarLayout';
 import Header from '@/components/layout/header.jsx';
@@ -10,7 +10,8 @@ import PropertiesSection from './properties-section';
 import AppToaster from '@/components/ui/Toaster';
 import { toast } from 'sonner';
 
-export default function DashboardClientLayout({session}) {  
+export default function DashboardClientLayout({session}) {
+    const [collapsed, setCollapsed] = useState(false);
   useEffect(
       () => {
     if (session?.user) {
@@ -21,7 +22,7 @@ export default function DashboardClientLayout({session}) {
   return (
  
     <div className="flex h-screen bg-gray-50">
-      <Sidebar session={session} />
+      <Sidebar collapsed={collapsed} toggleSidebar={() => setCollapsed(!collapsed)}  />
       {/* Toast Notifications */}
       <AppToaster/>
 
